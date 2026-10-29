@@ -1,10 +1,71 @@
+<div align="center">
+
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="docs/assets/nexora-hero.png">
+  <img src="docs/assets/nexora-hero.gif" alt="NEXORA TWIN connects operations, documents, forecasts, scenarios, reports and inventory around a business digital twin." width="1200">
+</picture>
+
 # NEXORA TWIN
 
-**Understand Your Business. Simulate Your Future.**
+### Understand Your Business. Simulate Your Future.
 
-A local multi-business decision intelligence MVP built with Next.js, FastAPI, PostgreSQL/pgvector, Redis/RQ and small local Ollama models. The original brief is in [product requirements](docs/product-requirements.txt). See [progress and measured verification](docs/progress.md).
+**Turn business records into traceable insights, local AI answers and reviewed what-if scenarios.**
 
-## Start the application
+<a href="https://github.com/lavkeshraj03/NEXORA-TWIN/actions/workflows/ci.yml"><img src="https://github.com/lavkeshraj03/NEXORA-TWIN/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI workflow status"></a>
+<img src="https://img.shields.io/badge/Next.js-16-111827?style=flat-square&amp;logo=nextdotjs&amp;logoColor=white" alt="Next.js 16">
+<img src="https://img.shields.io/badge/Python-3.12%2B-3776AB?style=flat-square&amp;logo=python&amp;logoColor=white" alt="Python 3.12 or newer">
+<img src="https://img.shields.io/badge/PostgreSQL-pgvector-4169E1?style=flat-square&amp;logo=postgresql&amp;logoColor=white" alt="PostgreSQL with pgvector">
+<img src="https://img.shields.io/badge/Ollama-local%20AI-16634B?style=flat-square" alt="Local AI through Ollama">
+
+[Quick start](#quick-start) · [Product tour](#product-tour) · [Local AI](#local-ai-on-this-mac) · [Demo data](#demo-data) · [Verification](#verification) · [Documentation](#documentation-and-limits)
+
+</div>
+
+---
+
+## Your business, connected
+
+NEXORA TWIN is a **local multi-business decision intelligence MVP**. Import your operational records, reconcile the numbers, ask questions of your documents, inspect evaluated models and explore hypothetical decisions from saved business states.
+
+Each business has its own memberships, roles and data. The verified AI profile runs on a laptop with small local models—no paid model API or fine-tuning is required.
+
+| From your records… | …to a useful next step |
+| --- | --- |
+| **Orders, costs and expenses** | Source-calculated revenue, margins, profit and reporting coverage |
+| **Business documents** | Local document answers with exact supporting excerpts |
+| **Recorded sales history** | Evaluated sales/demand forecasts and customer-inactivity estimates |
+| **Saved business snapshots** | Reproducible history, captured sources and period comparisons |
+| **Reviewed assumptions** | Price/cost/demand scenarios, sensitivity and stock/cash calculations |
+| **Business questions** | Bounded analyst investigations with an evidence trail |
+| **Linked source records** | A navigable knowledge graph built from recorded relationships |
+| **Saved results** | Seven report types with CSV and paginated PDF exports |
+
+**Daily workflow:** `Import → Reconcile → Forecast → Simulate → Investigate → Export`
+
+Updates follow saved/imported records and explicit refreshes. Automatic POS, bank and online-store integrations are not included in this release.
+
+## Product tour
+
+<img src="docs/assets/dashboard-demo.png" alt="Actual NEXORA TWIN dashboard displaying explicitly labelled synthetic retail records, reporting dates, revenue, gross profit, expenses and operating profit." width="1440">
+
+<sub>Actual application screenshot from end-to-end acceptance. All displayed business records are synthetic demonstration data.</sub>
+
+<details>
+<summary><strong>What has been verified?</strong></summary>
+
+- **167 backend tests** and **37 frontend tests**, plus strict TypeScript.
+- **Nine live HTTP workflows** and **14 authenticated browser stages**.
+- Real local embeddings, cited answers and image-only PDF OCR.
+- All **seven report families** downloaded as CSV/PDF; seven PDFs parsed in strict mode.
+- Tenant/role boundaries, immutable evidence, provider-failure behaviour and cleanup of isolated test data.
+
+These are measured local acceptance results, not production certification or a claim of general model accuracy. See the [full end-to-end report](docs/end-to-end-verification.md).
+
+</details>
+
+---
+
+## Quick start
 
 For a fresh checkout, create .env as below. Preserve an existing .env and its database volumes during upgrades.
 
@@ -34,9 +95,11 @@ docker compose up -d backend worker frontend
 
 The OCR helper uses macOS Vision; it is not a Linux-container service. Native helpers must be started again after reboot. The API and worker must use the same provider URL/model settings. Changing provider identity requires explicit document re-indexing. If AI is unavailable, document answers and analyst investigations report the failure; dashboards, numerical models, snapshots, scenarios and existing ordinary reports continue to work.
 
-## Use Nexa demonstration data
+## Demo data
 
-Your existing **Nexa** business already contains explicitly labelled synthetic operational data, documents, models, snapshots, scenarios, investigations and seven reports. Sign in with your existing account and select Nexa. See the [Nexa walkthrough](docs/nexa-demo-guide.md). Choose **29 September–28 October 2026** to reproduce the loaded financial example: revenue INR 150,562; gross profit INR 69,012; recorded expenses INR 26,300; operating profit INR 42,712.
+**A fresh installation starts empty.** Create a separate INR retail demo business and follow [demo setup](docs/deployment.md#fresh-labelled-demonstration) to load the synthetic package in [datasets/nexa-demo](datasets/nexa-demo). The loader checks ownership and refuses to mix demo records into a nonempty business.
+
+The maintainer's local **Nexa** workspace already has the expanded demo, including saved scenarios, investigations and seven reports. If you are using that installation, select Nexa and follow the [walkthrough](docs/nexa-demo-guide.md). For **29 September–28 October 2026**, its synthetic example reconciles to revenue INR 150,562, gross profit INR 69,012, recorded expenses INR 26,300 and operating profit INR 42,712.
 
 Try these screens in order:
 
@@ -48,9 +111,9 @@ Try these screens in order:
 6. **Knowledge graph:** search a SKU and inspect stored relationships and source records.
 7. **Reports & exports:** open one of the seven saved reports and download its CSV or PDF.
 
-Other accounts and businesses start empty. Use Import data to upload, map, validate and explicitly confirm records. For a fresh demo, use a separate empty INR retail business; the guarded loader refuses to mix records into a nonempty business. Instructions are in [deployment and demo setup](docs/deployment.md).
+For real records, use **Import data** to upload, map, validate and explicitly confirm your files. Keep real records in a separate business from the demonstration package.
 
-## Verify or develop
+## Verification
 
 ```sh
 python3 -m venv backend/.venv
@@ -90,3 +153,15 @@ backend/.venv/bin/python scripts/verify_fresh_install.py --all-flows
 This starts a disposable installation, runs the complete backend suite, then verifies identity/team access, imports and financial totals, all five document formats, scanned-PDF OCR, local cited answers, sales/demand/inactivity models, snapshots, scenarios, analyst evidence/failures, graph relationships and report exports through the real frontend proxy. Chrome then exercises a continuous authenticated browser journey, including six CSV confirmations, training, snapshot/scenario comparisons, all seven CSV/PDF report downloads, settings, tenant switching, team permissions, mobile layout and logout/relogin.
 
 Requires an installed Chrome/Chromium binary (CHROME_BIN can override its path), native Node 22+, configured real local AI/OCR and free acceptance ports 3001/8001/8002/55433/56380. Tests use synthetic data and remove only their own isolated project. The exact registration counter in that disposable Redis is cleared between independent workflows; the main application's Redis is untouched. Receipts/screenshots/downloads are written under .local/e2e/. A browser-only rerun is available with --browser-only.
+
+---
+
+<div align="center">
+
+**Understand today. Explore tomorrow.**
+
+[Read the architecture](docs/architecture.md) · [Explore the API](docs/api-reference.md) · [Review the evidence](docs/end-to-end-verification.md)
+
+<sub>Original animated artwork lives in this repository. Regenerate it with <code>python3 scripts/generate_readme_animation.py</code> after installing the optional Pillow package.</sub>
+
+</div>
