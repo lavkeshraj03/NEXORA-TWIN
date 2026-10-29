@@ -1,0 +1,7 @@
+sku,name,unit_price,unit_cost,supplier_external_id,initial_stock,is_demo
+NX-NBK-01,Demo notebook,120.00,65.00,NX-SUP-01,0,true
+NX-PEN-01,Demo desk pen,40.00,18.00,NX-SUP-01,0,true
+NX-BAG-01,Demo laptop bag,850.00,480.00,NX-SUP-02,0,true
+NX-BTL-01,Demo water bottle,300.00,160.00,NX-SUP-02,0,true
+NX-DSK-01,Demo desk organizer,450.00,240.00,NX-SUP-03,0,true
+NX-CBL-01,Demo USB-C cable,250.00,120.00,NX-SUP-03,0,true

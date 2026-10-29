@@ -1,0 +1,3 @@
+sku,name,unit_price,unit_cost,supplier_external_id,initial_stock,is_demo
+P1,Notebook,120.00,65.00,S1,0,true
+P2,Desk pen,40.00,18.00,S1,0,true

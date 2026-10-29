@@ -1,0 +1,36 @@
+{
+  "version": "nexa-demo-v1",
+  "synthetic": true,
+  "currency": "INR",
+  "history_start": "2026-05-02",
+  "history_end": "2026-10-28",
+  "report_start": "2026-09-29",
+  "report_end": "2026-10-28",
+  "resource_rows": {
+    "customers": 84,
+    "suppliers": 3,
+    "products": 6,
+    "orders": 522,
+    "inventory": 538,
+    "expenses": 68
+  },
+  "orders": 342,
+  "paid_orders": 340,
+  "expected_stock": {
+    "NX-NBK-01": "90",
+    "NX-PEN-01": "8",
+    "NX-BAG-01": "35",
+    "NX-BTL-01": "55",
+    "NX-DSK-01": "40",
+    "NX-CBL-01": "25"
+  },
+  "demand_sku": "NX-PEN-01",
+  "expected_metrics": {
+    "revenue": "150562.00",
+    "cogs": "81550.00",
+    "gross_profit": "69012.00",
+    "recorded_expenses": "26300.00",
+    "operating_profit": "42712.00",
+    "paid_orders": 70
+  }
+}

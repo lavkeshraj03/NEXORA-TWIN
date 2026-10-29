@@ -1,0 +1,3 @@
+external_id,name,email,is_demo
+C1,Demo Customer One,customer1@example.com,true
+C2,Demo Customer Two,customer2@example.com,true

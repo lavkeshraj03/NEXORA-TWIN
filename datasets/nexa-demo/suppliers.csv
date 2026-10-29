@@ -1,0 +1,4 @@
+external_id,name,email,is_demo
+NX-SUP-01,Demo supplier 1,supplier1@nexa.example,true
+NX-SUP-02,Demo supplier 2,supplier2@nexa.example,true
+NX-SUP-03,Demo supplier 3,supplier3@nexa.example,true

@@ -1,0 +1,93 @@
+name: nexora-twin
+x-backend: &backend
+  build: ./backend
+  environment: &backend-env
+    ENVIRONMENT: ${ENVIRONMENT:-development}
+    DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-nexora}:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@postgres:5432/${POSTGRES_DB:-nexora}
+    REDIS_URL: redis://redis:6379/0
+    ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-["http://localhost:3000"]}
+    AI_PROVIDER: ${AI_PROVIDER:-compatible}
+    AI_REQUEST_TIMEOUT: ${AI_REQUEST_TIMEOUT:-30}
+    DOCUMENT_CHUNK_SIZE: ${DOCUMENT_CHUNK_SIZE:-1200}
+    DOCUMENT_CHUNK_OVERLAP: ${DOCUMENT_CHUNK_OVERLAP:-150}
+    AI_BASE_URL: ${AI_BASE_URL:-}
+    AI_API_KEY: ${AI_API_KEY:-}
+    AI_CHAT_MODEL: ${AI_CHAT_MODEL:-}
+    AI_EMBEDDING_MODEL: ${AI_EMBEDDING_MODEL:-}
+    OCR_URL: ${OCR_URL:-}
+    OCR_API_KEY: ${OCR_API_KEY:-}
+  init: true
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-nexora}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-nexora}
+    ports: ["127.0.0.1:${POSTGRES_PORT:-55432}:5432"]
+    volumes: ["postgres_data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports: ["127.0.0.1:${REDIS_PORT:-56379}:6379"]
+    volumes: ["redis_data:/data"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  migrate:
+    <<: *backend
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      postgres: {condition: service_healthy}
+    restart: "no"
+  backend:
+    <<: *backend
+    ports: ["127.0.0.1:${BACKEND_PORT:-8000}:8000"]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+      redis: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health/ready')"]
+      interval: 15s
+      timeout: 12s
+      retries: 5
+    restart: unless-stopped
+  worker:
+    <<: *backend
+    command: ["python", "-m", "app.worker"]
+    depends_on:
+      backend: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "python", "-c", "from redis import Redis; from rq import Worker; import os; r=Redis.from_url(os.environ['REDIS_URL']); assert any(w.last_heartbeat for w in Worker.all(connection=r))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+  frontend:
+    build: ./frontend
+    init: true
+    environment:
+      API_INTERNAL_URL: http://backend:8000
+    ports: ["127.0.0.1:${FRONTEND_PORT:-3000}:3000"]
+    depends_on:
+      backend: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:

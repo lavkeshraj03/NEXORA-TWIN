@@ -1,0 +1,7 @@
+# DEMO Nexa Business Guide
+
+This is a synthetic retail workspace for learning NEXORA TWIN. It sells notebooks, pens, laptop bags, bottles, desk organizers and USB-C cables.
+
+Support hours are 09:00 to 17:00, Monday to Friday. The demonstration support contact is support@nexa.example.
+
+Every imported sale, expense, customer, supplier, product and stock movement is labelled is_demo=true. Numerical dashboards and forecasts use stored records; document Q&A explains document evidence only.

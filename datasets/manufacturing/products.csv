@@ -1,0 +1,3 @@
+sku,name,unit_price,unit_cost,supplier_external_id,initial_stock,is_demo
+P1,Finished pump,2200.00,1400.00,S1,0,true
+P2,Valve assembly,650.00,380.00,S1,0,true

@@ -1,0 +1,3 @@
+external_id,incurred_on,category,amount,currency,status,is_demo
+E1,2026-10-02,rent,1200.00,INR,paid,true
+E2,2026-10-15,utilities,350.00,INR,paid,true

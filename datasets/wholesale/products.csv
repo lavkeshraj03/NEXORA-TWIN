@@ -1,0 +1,3 @@
+sku,name,unit_price,unit_cost,supplier_external_id,initial_stock,is_demo
+P1,Case of notebooks,2400.00,1600.00,S1,0,true
+P2,Case of pens,1100.00,700.00,S1,0,true

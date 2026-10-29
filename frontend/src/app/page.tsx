@@ -1,0 +1,36 @@
+import { StatusPanel } from "@/components/status-panel";
+
+const roadmap = [
+  ["02", "A workspace of your own", "Authentication, business onboarding, roles, and verified tenant boundaries."],
+  ["03", "Turn data into clarity", "Validated imports, traceable financial calculations, and a live business overview."],
+  ["04", "Knowledge with evidence", "Document ingestion, local retrieval and grounded answers with source citations."],
+  ["05", "Forecast with measurements", "Evaluated sales, demand and customer-inactivity models with source records."],
+  ["06", "Your business through time", "Reproducible twin snapshots, source provenance, health rules and historical comparisons."],
+  ["07", "Test a business decision", "Reviewed assumptions, deterministic what-if calculations, sensitivity cases and scenario reports."],
+  ["08", "Investigate with evidence", "Bounded AI tools, cited financial and document evidence, private history and review steps."],
+  ["09", "Connect the bigger picture", "Source-backed relationship exploration and frozen business reports with CSV and PDF exports."],
+];
+
+export default function Home() {
+  return <div className="app-shell">
+    <aside className="sidebar">
+      <a className="brand" href="/" aria-label="Nexora Twin home"><span className="brand-mark">N</span><span>NEXORA<span className="brand-light"> TWIN</span></span></a>
+      <div className="workspace-label">YOUR WORKSPACE</div>
+      <div className="workspace"><span className="workspace-icon">N</span><div><strong>Business workspace</strong><small>Sign in to open</small></div><span className="workspace-chevron">⌄</span></div>
+      <nav aria-label="Workspace navigation"><span className="nav-caption">WORKSPACE</span><a href="#overview" className="nav-link active"><span>▦</span>Overview<span className="nav-dot" /></a><a href="#system-health" className="nav-link"><span>◎</span>System health</a><a href="#architecture" className="nav-link"><span>◇</span>Architecture</a><a href="#build-plan" className="nav-link"><span>≡</span>Development plan</a></nav>
+      <div className="sidebar-bottom"><div className="build-badge"><span className="dot green" />Foundation release <span>v0.1</span></div><div className="sidebar-note">Good decisions start with<br />a trustworthy foundation.</div><div className="profile"><span className="avatar">NT</span><div><strong>Local development</strong><small>Phase 10 · Local MVP verified</small></div></div></div>
+    </aside>
+    <div className="main-shell" id="overview">
+      <header className="topbar"><div><span className="breadcrumb">Workspace</span><span className="slash">/</span><strong>Overview</strong></div><span className="environment"><i />Development environment</span></header>
+      <main id="main-content" tabIndex={-1}>
+        <div className="page-title"><div><div className="eyebrow">BUSINESS INTELLIGENCE, REIMAGINED</div><h1>A clearer view starts here<span>.</span></h1><p>Understand your business. Simulate your future.</p></div><a className="button secondary" href="/workspace">Open workspace <span>↗</span></a></div>
+        <section className="hero-panel"><div className="hero-content"><span className="hero-label"><span className="dot green" />YOUR BUSINESS, CONNECTED</span><h2>One business.<br />Every perspective.</h2><p>A connected home for your operations, knowledge, and decisions. Your workspace will grow with verified capabilities, one phase at a time.</p><a className="button primary" href="/workspace">Open your workspace <span>→</span></a><span className="hero-footnote">Import your records to see your business metrics.</span></div><div className="twin-visual" aria-hidden="true"><div className="orbit orbit-one"/><div className="orbit orbit-two"/><div className="orbit orbit-three"/><div className="connector connector-a"/><div className="connector connector-b"/><div className="twin-core"><span>◇</span><small>YOUR BUSINESS</small><strong>Digital twin</strong></div><div className="orbit-node node-data"><span>▥</span><div><strong>Operations</strong><small>Your business, understood</small></div></div><div className="orbit-node node-docs"><span>≡</span><div><strong>Knowledge</strong><small>Evidence behind every answer</small></div></div><div className="orbit-node node-future"><span>↗</span><div><strong>Possibilities</strong><small>Decisions, explored safely</small></div></div><div className="visual-label">CONNECTED BY DESIGN</div></div></section>
+        <div className="section-label"><h2>Built for decisions you can trust</h2><span>A foundation before the forecast</span></div>
+        <div className="principles"><article><span className="principle-icon">◇</span><h3>Your business stays yours</h3><p>Business memberships and roles control access on every protected business API request.</p><span className="phase-tag">AVAILABLE · PHASE 2</span></article><article><span className="principle-icon">⌁</span><h3>Every number has a source</h3><p>Historical sales, costs, and profit link to your imported business records.</p><span className="phase-tag">AVAILABLE · PHASE 3</span></article><article><span className="principle-icon">⌘</span><h3>Evidence over guesswork</h3><p>Real document citations and model evaluations. No invented answers or hidden provider fallbacks.</p><span className="phase-tag">AVAILABLE · LOCAL AI</span></article></div>
+        <div className="setup-grid" id="system-health"><StatusPanel/><section className="panel architecture" id="architecture"><span className="eyebrow">UNDER THE HOOD</span><h2>A modular foundation.</h2><p>Clear responsibilities. Independent services.<br/>Built to evolve with your business.</p><div className="stack-flow"><div><span className="stack-logo">N</span><strong>Next.js</strong><small>Typed interface</small></div><span>↔</span><div><span className="stack-logo api-logo">ϟ</span><strong>FastAPI</strong><small>Business services</small></div><span>↔</span><div><span className="stack-logo db-logo">▱</span><strong>PostgreSQL</strong><small>Durable records</small></div></div><div className="architecture-footer"><span>pgvector</span><span>Redis + RQ</span><span>Alembic</span><span>Docker Compose</span></div><p className="fine-print">Local AI runs through Ollama. Check provider status in Documents & answers.</p></section></div>
+        <section className="roadmap panel" id="build-plan"><div className="panel-heading"><div><span className="eyebrow">THE ROAD AHEAD</span><h2>Built in verified steps.</h2></div><span className="outline-badge">Phase 10 · Local MVP verified</span></div><div className="roadmap-items">{roadmap.map(([number, title, detail]) => <article key={number}><span className="step-number">{number}</span><div><h3>{title}</h3><p>{detail}</p></div><span className="planned-label">{["02", "03", "04", "05", "06", "07", "08", "09"].includes(number) ? "Available" : "Planned"}</span></article>)}</div><div className="roadmap-footer"><span>10</span><p><strong>Hardening & delivery · Available</strong> · Tested local startup, tenant controls, keyboard navigation, exports and delivery documentation.</p></div></section>
+        <footer className="footer"><span>NEXORA TWIN</span><span>Understand today. Explore tomorrow.</span><span>Foundation · v0.1.0</span></footer>
+      </main>
+    </div>
+  </div>;
+}

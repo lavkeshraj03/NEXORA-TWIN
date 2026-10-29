@@ -1,0 +1,5 @@
+[
+  {"question": "How long do customers have to return an item?", "expected_answer": "thirty days"},
+  {"question": "What proof is required for a return?", "expected_answer": "original receipt"},
+  {"question": "Where is the refund sent?", "expected_answer": "original payment method"}
+]

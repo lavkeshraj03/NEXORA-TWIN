@@ -1,0 +1,1893 @@
+MASTER DEVELOPMENT PROMPT: NEXORA TWIN
+
+1. YOUR ROLE
+
+Act as a senior full-stack engineer, AI/ML engineer, RAG architect, data engineer, product designer, security engineer, and DevOps engineer.
+
+Your responsibility is to design, implement, test, and document a complete, working, production-minded web application named NEXORA TWIN.
+
+Do not build only a UI prototype.
+
+Build a functional application with a real frontend, backend, database, RAG pipeline, machine-learning prediction services, business simulation engine, AI agent, authentication, tenant isolation, automated tests, and deployment configuration.
+
+The result must be maintainable, modular, secure, scalable, and suitable for demonstration as a final-year computer science major project.
+
+Do not claim that features work unless they have been implemented and tested.
+
+⸻
+
+2. PRODUCT IDENTITY
+
+Product name: NEXORA TWIN
+
+Tagline: Understand Your Business. Simulate Your Future.
+
+Product category: AI-powered business digital twin and decision intelligence platform.
+
+Core description:
+
+NEXORA TWIN allows multiple independent businesses to create digital representations of their operations. It combines structured business data, unstructured documents, retrieval-augmented generation, machine learning, forecasting, simulation, and AI-assisted analysis.
+
+Each business can understand its current operations, investigate business problems, forecast potential outcomes, and evaluate hypothetical decisions before applying them to the real world.
+
+The platform must support different business types through a common, configurable foundation.
+
+Initial supported business profiles:
+
+1. Retail and e-commerce
+2. Manufacturing
+3. Restaurants and food businesses
+4. Professional services
+5. Wholesale and distribution
+
+The architecture must allow additional business profiles to be introduced without rewriting the entire application.
+
+⸻
+
+3. NON-NEGOTIABLE DEVELOPMENT RULES
+
+1. Build real functionality rather than decorative screens.
+2. Use real backend APIs for every functional dashboard component.
+3. Persist business data in PostgreSQL.
+4. Implement actual document ingestion, embeddings, retrieval, and source citations.
+5. Implement real machine-learning pipelines using appropriate datasets.
+6. Implement deterministic simulation calculations in tested Python modules.
+7. Use LLMs for language understanding, summarization, and explanation, not as the authority for financial arithmetic.
+8. Never fabricate predictions, source documents, metrics, or successful operations.
+9. Distinguish actual historical results, calculated metrics, forecasts, and hypothetical simulations.
+10. Every prediction must identify its model, relevant input data, forecast horizon, and limitations.
+11. Every simulation must display its assumptions and calculation methodology.
+12. Every business must be isolated from every other business.
+13. Enforce tenant access restrictions in the backend, not only in the frontend.
+14. Do not expose secrets or API keys in frontend code.
+15. Do not hardcode fake dashboard metrics in production application components.
+16. Seeded demonstration data is permitted but must be explicitly identified as demo data.
+17. Add loading, empty, success, and error states to all important interfaces.
+18. Do not leave critical functionality represented by TODO comments, mock handlers, or placeholder buttons.
+19. Do not silently substitute one AI model or algorithm for another when a provider fails.
+20. Keep documentation and environment configuration synchronized with the implemented code.
+21. Prefer a working, tested MVP over a huge but unreliable collection of features.
+22. Never allow an AI agent to execute consequential real-world actions without explicit authorization.
+
+Before writing code, inspect the existing repository, identify the current stack, understand existing conventions, and preserve any useful working code.
+
+Do not overwrite an existing application blindly.
+
+If the repository is empty, initialize the project structure described below.
+
+⸻
+
+4. PRODUCT REQUIREMENTS
+
+The platform must provide the following capabilities.
+
+A. Multi-business workspace management.
+
+B. Business data ingestion and management.
+
+C. Interactive business analytics dashboard.
+
+D. Document management and RAG-based question answering.
+
+E. Machine-learning predictions and forecasting.
+
+F. Business digital twin state management.
+
+G. What-if scenario simulation.
+
+H. AI business analyst with controlled tool calling.
+
+I. Business knowledge graph and relationship exploration.
+
+J. Model evaluation and prediction monitoring.
+
+K. Authentication, roles, permissions, and audit logging.
+
+L. Import/export, reporting, and deployment.
+
+Each capability must have a defined backend contract and a usable frontend interface.
+
+⸻
+
+5. MULTI-TENANT ARCHITECTURE
+
+This is one of the most important requirements.
+
+NEXORA TWIN must support multiple independent businesses inside the same platform.
+
+For example:
+
+* NovaMart: Retail business
+* TrueBuild: Construction materials business
+* FoodSphere: Restaurant business
+* TechFlow: Professional services business
+
+Each business must have independent:
+
+* Business profile and settings
+* Users and memberships
+* Customers
+* Products and services
+* Orders and sales
+* Suppliers
+* Inventory records
+* Expenses and transactions
+* Business documents
+* Vector embeddings and document chunks
+* ML models and prediction results
+* Digital twin state
+* Simulation scenarios and results
+* AI conversations
+* Reports and audit logs
+
+Tenant model
+
+Create a Business entity and a BusinessMembership entity.
+
+A user can belong to multiple businesses and have a different role in each business.
+
+Every tenant-owned database record must include a business_id or inherit an equivalent tenant-scoped relationship.
+
+All API operations must verify that the authenticated user is authorized to access the requested business.
+
+Never trust a business_id provided by the client without verifying membership and permissions.
+
+Use composite foreign keys, tenant-scoped queries, and PostgreSQL Row-Level Security where appropriate.
+
+If Row-Level Security is enabled, configure database session tenant context safely, reset it correctly when connections are reused, and test it against connection pooling.
+
+Background jobs must also validate the business context before accessing tenant data.
+
+Object storage paths, cached results, generated reports, vector searches, and AI conversation histories must be tenant-scoped.
+
+Cross-tenant access must be tested explicitly.
+
+A user from NovaMart must never retrieve documents, sales figures, predictions, or simulations belonging to TrueBuild.
+
+Roles
+
+Implement:
+
+* Platform Administrator
+* Business Owner
+* Business Administrator
+* Analyst
+* Viewer
+
+Use a centralized permission service.
+
+Platform administration must not accidentally expose tenant data through unrestricted endpoints.
+
+⸻
+
+6. BUSINESS CONFIGURATION SYSTEM
+
+Create a business onboarding workflow.
+
+Step 1: Enter business name.
+
+Step 2: Select business type.
+
+Step 3: Select country, timezone, and currency.
+
+Step 4: Configure reporting periods.
+
+Step 5: Select relevant business modules.
+
+Step 6: Import a dataset or generate a clearly labeled demo dataset.
+
+Step 7: Configure AI providers if required.
+
+Step 8: Complete onboarding and open the dashboard.
+
+Create configurable business profiles.
+
+For example:
+
+Retail:
+
+* Products
+* Customers
+* Orders
+* Inventory
+* Marketing
+* Suppliers
+* Revenue and costs
+
+Restaurant:
+
+* Menu items
+* Orders
+* Branches
+* Ingredients
+* Inventory
+* Supplier purchases
+* Food costs
+* Sales and expenses
+
+Manufacturing:
+
+* Materials
+* Finished goods
+* Production orders
+* Bill of materials
+* Inventory
+* Suppliers
+* Production costs
+* Sales
+
+Professional services:
+
+* Clients
+* Projects
+* Employees
+* Billable hours
+* Invoices
+* Expenses
+* Utilization
+* Profitability
+
+Do not force every business type to use identical metrics.
+
+Implement a common business data foundation plus type-specific modules.
+
+Use explicit configuration and validation rather than a collection of deeply nested conditional statements.
+
+⸻
+
+7. DATABASE DESIGN
+
+Design a normalized relational schema using PostgreSQL and SQLAlchemy 2.0.
+
+Include the following major entities.
+
+Identity and tenancy
+
+* users
+* businesses
+* business_memberships
+* roles
+* permissions
+* invitations
+* audit_logs
+
+Business operations
+
+* business_profiles
+* customers
+* suppliers
+* products
+* product_categories
+* orders
+* order_items
+* inventory_locations
+* inventory_balances
+* inventory_movements
+* purchase_orders
+* purchase_order_items
+* expenses
+* financial_transactions
+* employees
+* marketing_campaigns
+
+Use separate tables where business relationships require structured relational data.
+
+Do not create one enormous generic table containing every possible business field.
+
+Use business-specific tables or modular extensions where appropriate.
+
+AI and documents
+
+* documents
+* document_versions
+* document_chunks
+* embedding_metadata
+* rag_queries
+* rag_retrieval_logs
+* AI conversations
+* AI messages
+* model_providers
+* model_configurations
+
+Machine learning
+
+* ML datasets
+* model_versions
+* training_runs
+* evaluation_runs
+* prediction_jobs
+* prediction_results
+* model_monitoring_events
+
+Digital twin and simulation
+
+* twin_snapshots
+* twin_metrics
+* scenario_definitions
+* scenario_parameters
+* simulation_runs
+* simulation_results
+* scenario_comparisons
+
+Knowledge graph
+
+* knowledge_nodes
+* knowledge_edges
+* entity_source_links
+
+Reporting
+
+* generated_reports
+* scheduled_report_configurations
+
+Add:
+
+* UUID primary keys where appropriate
+* Created and updated timestamps
+* Appropriate database constraints
+* Indexes for common queries
+* Foreign keys
+* Unique constraints
+* Tenant-scoped uniqueness
+* Safe deletion and retention policies
+
+Use Alembic migrations.
+
+Do not create or modify production tables through uncontrolled application startup scripts.
+
+Provide documented migration and seed commands.
+
+⸻
+
+8. DATA IMPORT AND VALIDATION
+
+Build a data ingestion module supporting:
+
+* CSV
+* XLSX
+* JSON
+* Manual data entry
+* Document uploads
+
+For structured data imports:
+
+1. Upload the file.
+2. Validate its format and size.
+3. Display a preview.
+4. Identify columns.
+5. Allow the user to map columns to business fields.
+6. Validate types and required fields.
+7. Display errors and warnings.
+8. Show a preview of transformed records.
+9. Require confirmation before importing.
+10. Import records using background jobs when appropriate.
+11. Display success and failure counts.
+12. Allow the user to download an error report.
+
+Prevent duplicate imports using idempotency keys, external identifiers, or explicit deduplication rules.
+
+Never assume that every uploaded spreadsheet has the same column names.
+
+Provide sample datasets for each supported business profile.
+
+Synthetic data must be generated using consistent relationships and realistic constraints.
+
+For example:
+
+* An order must reference an existing customer.
+* Order items must reference valid products.
+* Inventory movements must reconcile with inventory balances.
+* Financial transactions must have valid dates and currencies.
+
+Clearly label synthetic data in the interface and API responses.
+
+⸻
+
+9. RAG DOCUMENT INTELLIGENCE
+
+Implement a real multi-tenant RAG system.
+
+Document formats
+
+Support:
+
+* PDF
+* DOCX
+* TXT
+* CSV
+* XLSX
+
+Add OCR support for scanned documents through a configurable OCR service.
+
+Handle tables and structured spreadsheet content separately from ordinary prose where appropriate.
+
+Ingestion pipeline
+
+Implement the following pipeline:
+
+Upload
+→ File validation
+→ Malware/content checks where available
+→ Text extraction
+→ Table extraction
+→ Metadata extraction
+→ Document normalization
+→ Chunking
+→ Embedding generation
+→ Tenant-scoped vector storage
+→ Indexing
+→ Ingestion status
+
+Track each ingestion job and expose its status in the UI.
+
+Support document versioning and re-indexing.
+
+Delete or deactivate outdated chunks when a document version is replaced.
+
+Chunking
+
+Implement configurable chunking strategies.
+
+Include:
+
+* Chunk size
+* Overlap
+* Heading-aware splitting
+* Table-aware splitting
+* Metadata preservation
+
+Preserve source document IDs, page numbers where available, section headings, and document version identifiers.
+
+Retrieval
+
+Implement:
+
+* Vector similarity search using pgvector
+* PostgreSQL full-text search or BM25 through an appropriate retrieval service
+* Hybrid retrieval
+* Metadata filtering
+* Optional reranking
+* Deduplication
+* Context assembly
+* Retrieval limits
+* Tenant authorization checks
+
+Apply tenant and document-level authorization filters before retrieved content is sent to an LLM.
+
+Do not rely on post-generation filtering to protect private information.
+
+Answer generation
+
+The RAG response must include:
+
+* Direct answer
+* Source citations
+* Document title
+* Page or section when available
+* Supporting excerpts
+* Retrieval confidence or relevance information
+* Limitations when evidence is insufficient
+
+Citations must refer to actual retrieved chunks.
+
+Never invent document names, page numbers, or quotations.
+
+When the evidence is insufficient, explicitly say that the available documents do not establish the answer.
+
+Support follow-up questions with conversation context while maintaining tenant isolation.
+
+RAG evaluation
+
+Create an evaluation workflow using a curated question-and-answer dataset.
+
+Evaluate:
+
+* Retrieval recall
+* Retrieval precision
+* Ranking quality
+* Citation correctness
+* Answer faithfulness
+* Answer relevance
+* Latency
+
+Do not display fabricated evaluation scores.
+
+Show “Not evaluated” until real evaluation results exist.
+
+⸻
+
+10. AI MODEL PROVIDER SYSTEM
+
+Create a provider abstraction that separates application logic from model vendors.
+
+Support configurable adapters for:
+
+* OpenAI-compatible hosted APIs
+* Other hosted model providers
+* Local models served through a compatible inference server
+
+Implement provider configuration through server-side environment variables and secure settings.
+
+Never expose API keys to the browser.
+
+Do not store plaintext API keys in ordinary business configuration records.
+
+If users can configure their own credentials, encrypt them using an established secrets-management approach.
+
+Implement:
+
+* Model selection
+* Timeouts
+* Retry policies
+* Rate limits
+* Error handling
+* Token usage tracking
+* Cost estimation where pricing information is available
+* Provider health status
+
+Use separate configuration for:
+
+* Chat/completion models
+* Embedding models
+* Reranking models
+* ML prediction models
+
+Do not assume every LLM supports the same tool-calling or structured-output capabilities.
+
+Use adapters and validate returned data.
+
+If a provider fails, return a clear error or use an explicitly configured fallback.
+
+Never fabricate an AI response to hide a provider failure.
+
+⸻
+
+11. MACHINE LEARNING AND PREDICTION ENGINE
+
+Implement actual ML workflows.
+
+Do not use an LLM to invent numerical predictions.
+
+Use suitable statistical or machine-learning models for numerical forecasting and classification.
+
+Supported initial tasks
+
+A. Sales forecasting
+
+Predict future sales using historical sales data.
+
+Implement:
+
+* Daily or weekly aggregation
+* Train/test splitting by time
+* A naive baseline
+* A suitable statistical or ML forecasting model
+* Forecast horizon selection
+* Prediction intervals where supported
+* Forecast evaluation
+
+Avoid random train/test splitting for time-series forecasting.
+
+B. Customer churn prediction
+
+Use appropriate historical customer features.
+
+Potential features:
+
+* Recency of last purchase
+* Purchase frequency
+* Average order value
+* Tenure
+* Complaint count
+* Support interactions
+
+Define churn explicitly for the chosen business profile.
+
+For example, a customer may be labeled as churned if they have not purchased within a defined period.
+
+Document this definition.
+
+Prevent target leakage.
+
+Evaluate with suitable metrics such as precision, recall, F1, ROC-AUC, and PR-AUC where appropriate.
+
+C. Demand forecasting
+
+Predict product-level demand.
+
+Consider:
+
+* Historical quantity sold
+* Seasonality
+* Price changes
+* Promotions
+* Day of week
+* Product availability
+
+D. Inventory risk
+
+Estimate stockout risk using:
+
+* Current inventory
+* Historical demand
+* Lead time
+* Incoming purchase orders
+* Safety stock assumptions
+
+Distinguish calculated inventory risk from ML-generated forecasts.
+
+E. Anomaly detection
+
+Identify unusual values in sales, expenses, inventory movements, or other supported metrics.
+
+Allow the user to inspect the data points responsible for an alert.
+
+Model lifecycle
+
+Implement:
+
+Dataset validation
+→ Feature engineering
+→ Training
+→ Validation
+→ Evaluation
+→ Model versioning
+→ Deployment
+→ Prediction
+→ Monitoring
+
+Store:
+
+* Model type
+* Version
+* Training dataset reference
+* Feature definitions
+* Training period
+* Evaluation metrics
+* Created timestamp
+* Model artifact reference
+
+Prevent unauthorized model access across businesses.
+
+Use per-business models when data volume permits.
+
+If using pooled models, clearly define tenant-safe training rules and prevent one business’s private records from being exposed to another.
+
+Never train a shared model on tenant data without an explicit, documented policy and appropriate authorization.
+
+When there is insufficient data, report that limitation and offer an explicitly labeled baseline or synthetic demonstration.
+
+Do not present unvalidated model output as a reliable forecast.
+
+⸻
+
+12. FINANCIAL CALCULATION ENGINE
+
+Implement deterministic, tested calculation services.
+
+Use Decimal arithmetic for monetary calculations where appropriate.
+
+Support currencies and explicit rounding rules.
+
+At minimum, implement:
+
+Revenue
+= Sum of valid sales amounts
+
+Gross Profit
+= Revenue - Cost of Goods Sold
+
+Gross Margin Percentage
+= Gross Profit / Revenue × 100
+
+Operating Profit
+= Gross Profit - Operating Expenses
+
+Inventory Value
+= Sum of quantity × applicable unit cost
+
+Average Order Value
+= Total qualifying sales / Number of qualifying orders
+
+Customer Retention
+= Defined retained customers / Eligible customers × 100
+
+Define every metric precisely.
+
+Specify:
+
+* Included transaction statuses
+* Treatment of cancellations and refunds
+* Tax treatment
+* Discount treatment
+* Currency conversion rules
+* Reporting period
+* Timezone
+* Missing-data behavior
+
+Avoid double counting.
+
+Do not assume gross profit, operating profit, and net profit mean the same thing.
+
+If the dataset does not include all required costs, show the metric as incomplete rather than silently assuming missing costs are zero.
+
+Add automated unit tests for all formulas.
+
+⸻
+
+13. DIGITAL TWIN ENGINE
+
+The digital twin is a business state model, not simply a chat interface.
+
+Create a consistent representation of the business at a particular point in time.
+
+A twin snapshot should include:
+
+* Business identity
+* Snapshot timestamp
+* Reporting period
+* Revenue and cost metrics
+* Product and inventory state
+* Customer and order summaries
+* Supplier and purchasing state
+* Active assumptions
+* Data freshness
+* Source dataset versions
+
+Provide:
+
+* Current business state
+* Historical snapshots
+* Change tracking
+* Business health indicators
+* Detected risks
+* Forecast summaries
+
+The twin must be reconstructable from stored data and documented transformation rules.
+
+Record the source and timestamp of each metric.
+
+Distinguish between observed state, derived metrics, forecast values, and hypothetical simulation values.
+
+Do not automatically change real business records when a simulation is run.
+
+⸻
+
+14. WHAT-IF SIMULATION ENGINE
+
+This is the signature feature of NEXORA TWIN.
+
+Implement an independent simulation module with deterministic calculation logic.
+
+The simulation engine must accept validated business parameters and return a structured result.
+
+Initial scenarios
+
+Support:
+
+1. Product price change
+2. Marketing budget change
+3. Demand increase or decrease
+4. Supplier cost change
+5. Inventory replenishment change
+6. Employee cost change
+7. Customer churn change
+8. Combined scenarios
+
+Example
+
+Baseline:
+
+* Product price: ₹1,000
+* Units sold: 1,000
+* Unit cost: ₹600
+* Marketing expense: ₹50,000
+
+Hypothetical change:
+
+* Price increases by 10%
+
+The engine must not simply assume that demand remains unchanged.
+
+Provide a configurable demand-response model.
+
+For example:
+
+New demand
+= Baseline demand × (New price / Baseline price) ^ Price Elasticity
+
+Use this only when a suitable elasticity estimate or explicitly configured assumption exists.
+
+If elasticity is unknown, allow the user to provide a scenario assumption or show multiple sensitivity cases.
+
+Calculate the resulting revenue, cost of goods sold, and profit using documented formulas.
+
+Ensure that the model distinguishes revenue changes from profit changes.
+
+Simulation workflow
+
+1. Select a business.
+2. Load a baseline snapshot.
+3. Choose scenario parameters.
+4. Validate the parameters.
+5. Preview assumptions.
+6. Run the simulation.
+7. Calculate outputs.
+8. Compare against the baseline.
+9. Display absolute and percentage differences.
+10. Save the scenario.
+11. Compare multiple scenarios.
+12. Export a report.
+
+Store the input parameters, model version, baseline snapshot, and output results for reproducibility.
+
+Use deterministic simulations by default.
+
+For probabilistic simulations, clearly document distributions, assumptions, and random seeds.
+
+Support sensitivity analysis and best-case, baseline-case, and worst-case scenarios where the model supports them.
+
+Never claim that a hypothetical scenario is a guaranteed prediction.
+
+⸻
+
+15. AI BUSINESS ANALYST AGENT
+
+Implement a controlled AI agent that can investigate business questions using approved tools.
+
+Do not create an unrestricted autonomous agent.
+
+Available tools
+
+Create validated server-side tools for:
+
+* get_business_metrics
+* query_sales
+* query_inventory
+* query_customers
+* query_expenses
+* search_business_documents
+* run_sales_forecast
+* predict_customer_churn
+* detect_anomalies
+* run_what_if_simulation
+* compare_scenarios
+* generate_business_report
+
+Each tool must:
+
+* Validate its input
+* Check user permissions
+* Enforce tenant isolation
+* Apply resource limits
+* Return structured output
+* Record execution metadata
+* Handle errors explicitly
+
+The agent should select tools according to the user’s question.
+
+Example
+
+User:
+
+“Why did our profit decline this month?”
+
+Agent workflow:
+
+1. Identify the reporting period.
+2. Retrieve current and previous period financial metrics.
+3. Compare revenue, cost of goods sold, and operating expenses.
+4. Inspect available product and inventory data.
+5. Retrieve relevant business documents if needed.
+6. Identify supported contributing factors.
+7. Run additional analysis when justified.
+8. Produce an evidence-based explanation.
+9. Recommend possible actions.
+10. Cite the underlying data and documents.
+
+The agent must distinguish correlation from causation.
+
+If the available data does not establish a cause, say so.
+
+Do not allow the LLM to generate arbitrary SQL and execute it directly against production tables.
+
+Use predefined query tools, SQLAlchemy queries, or tightly controlled read-only query services.
+
+Require explicit user confirmation for consequential actions.
+
+The initial version must be read-only with respect to actual business operations.
+
+Simulation changes may modify simulation records but must never silently alter the underlying business data.
+
+⸻
+
+16. KNOWLEDGE GRAPH
+
+Create a tenant-scoped knowledge graph representing important business relationships.
+
+Example:
+
+Customer → places → Order
+
+Order → contains → Product
+
+Product → supplied by → Supplier
+
+Product → stored at → Warehouse
+
+Campaign → influences → Sales Metric
+
+Document → describes → Business Policy
+
+Use relational graph tables initially.
+
+Each node should include:
+
+* Node type
+* Business ID
+* Entity reference
+* Display label
+* Source reference
+
+Each edge should include:
+
+* Source node
+* Relationship type
+* Target node
+* Business ID
+* Source or derivation information
+
+Do not introduce a separate graph database unless the requirements justify it.
+
+Provide an interface to explore relevant relationships.
+
+Only create relationships supported by structured data or traceable extraction.
+
+Represent uncertain extracted relationships as unverified until validated.
+
+⸻
+
+17. PROFESSIONAL FRONTEND DESIGN
+
+Design NEXORA TWIN as a polished enterprise SaaS product.
+
+The interface must look like a real product designed by a professional product design team, not a generic AI-generated dashboard.
+
+Avoid:
+
+* Excessive gradients
+* Neon colors everywhere
+* Oversized headings
+* Too many rounded cards
+* Glassmorphism on every element
+* Decorative AI illustrations
+* Unnecessary animations
+* Excessive emojis
+* Random icons
+* Fake charts
+* Fake metrics
+* Dense screens without hierarchy
+* Identical layouts for every page
+
+Use a restrained, consistent design system.
+
+Visual direction
+
+Brand personality:
+
+* Intelligent
+* Analytical
+* Reliable
+* Premium
+* Technical
+* Business-oriented
+
+Suggested palette:
+
+* Primary background: #F7F8FA
+* Surface: #FFFFFF
+* Primary text: #17212B
+* Secondary text: #64748B
+* Primary brand: #3157D5
+* Positive state: #16845B
+* Warning state: #B7791F
+* Error state: #C2413B
+* Border: #E2E8F0
+
+Dark mode may use:
+
+* Background: #10151D
+* Surface: #171E29
+* Primary text: #E8EDF5
+* Secondary text: #9AA8BB
+
+Use colors semantically and maintain accessible contrast.
+
+Use a consistent typography system such as Inter.
+
+Use Lucide icons.
+
+Use a spacing scale, consistent border radii, restrained shadows, and predictable component behavior.
+
+Charts must have clear labels, legends, tooltips, and accessible color choices.
+
+Build reusable design tokens rather than styling every page independently.
+
+Application shell
+
+Create:
+
+* Collapsible left sidebar
+* Top navigation bar
+* Business selector
+* Global search
+* Notification area
+* User profile menu
+* Breadcrumbs
+* Main content region
+
+The active business must be clearly visible.
+
+Switching businesses must reload all tenant-scoped data safely.
+
+Required pages
+
+A. Public landing page
+
+Include:
+
+* Product positioning
+* Main value proposition
+* Feature overview
+* How it works
+* Simulation demonstration
+* AI/RAG explanation
+* Security overview
+* Call to action
+
+Use restrained typography and a clear layout.
+
+Do not claim unsupported customers, performance figures, or testimonials.
+
+B. Authentication
+
+* Login
+* Registration
+* Forgot password
+* Password reset
+* Email verification when configured
+* Session management
+
+C. Onboarding
+
+* Create a business
+* Select business type
+* Configure currency and timezone
+* Import data
+* Configure documents
+* Open workspace
+
+D. Business overview
+
+Show:
+
+* Revenue
+* Gross profit
+* Operating expenses
+* Order volume
+* Customer activity
+* Inventory health
+* Historical trends
+* Forecast summary
+* Risk alerts
+* Recent activity
+
+Metrics must come from real backend calculations.
+
+E. Data explorer
+
+Provide:
+
+* Searchable tables
+* Filters
+* Sorting
+* Pagination
+* Import workflows
+* Record details
+* Validation errors
+* Export functionality
+
+F. Document intelligence
+
+Provide:
+
+* Document library
+* Upload progress
+* Processing status
+* Search
+* Filters
+* Document preview
+* Source citations
+* RAG conversation interface
+* Retrieval source panel
+
+G. Predictions
+
+Provide:
+
+* Forecast selection
+* Prediction horizon
+* Model version
+* Input-data summary
+* Evaluation metrics
+* Forecast chart
+* Prediction intervals where supported
+* Model limitations
+* Data freshness indicators
+
+H. Digital twin
+
+Display the current business state and its major relationships.
+
+Show:
+
+* Current metrics
+* Historical changes
+* Risks
+* Forecasts
+* Data completeness
+* Snapshot history
+
+I. What-If Lab
+
+Provide:
+
+* Baseline selection
+* Parameter controls
+* Scenario form
+* Assumption summary
+* Validation messages
+* Run simulation button
+* Comparison charts
+* Metric difference table
+* Scenario history
+* Exportable report
+
+Make baseline and simulated values visually distinguishable.
+
+J. AI Business Analyst
+
+Create a conversation interface with:
+
+* Suggested questions
+* Tool execution status
+* Business metric cards
+* Source citations
+* Charts when relevant
+* Simulation results
+* Clear distinction between facts and assumptions
+
+Never present fabricated tool results.
+
+K. Knowledge graph
+
+Provide:
+
+* Interactive relationship view
+* Node search
+* Relationship filters
+* Entity details
+* Source references
+* Unverified relationship indicators
+
+L. Model laboratory
+
+Provide:
+
+* Dataset selection
+* Training jobs
+* Model registry
+* Evaluation results
+* Training history
+* Prediction history
+* Monitoring alerts
+
+Restrict training and model deployment to authorized roles.
+
+M. Settings
+
+Provide:
+
+* Business profile
+* Team management
+* Permissions
+* AI provider configuration
+* Data import settings
+* Retention settings
+* Audit history
+
+⸻
+
+18. FRONTEND ENGINEERING REQUIREMENTS
+
+Use TypeScript strictly.
+
+Avoid using any to bypass type safety.
+
+Create:
+
+* Shared UI components
+* Typed API clients
+* Centralized error handling
+* Authentication state management
+* Tenant-aware routing
+* Loading skeletons
+* Empty states
+* Error boundaries
+* Form validation
+* Accessible dialogs and menus
+
+Keep API response types synchronized with backend schemas.
+
+Use server-side protection for protected pages where appropriate.
+
+Never treat a hidden button or disabled UI element as a security boundary.
+
+Implement proper cancellation and loading states for long-running jobs.
+
+Use polling, server-sent events, or WebSockets where justified by the backend architecture.
+
+Avoid unnecessary global state.
+
+Prevent stale business data from remaining visible after switching tenants.
+
+Write frontend tests for important user flows.
+
+⸻
+
+19. BACKEND API DESIGN
+
+Organize the FastAPI application into modular routers and services.
+
+Use versioned API routes:
+
+/api/v1/auth
+
+/api/v1/users
+
+/api/v1/businesses
+
+/api/v1/businesses/{business_id}/members
+
+/api/v1/businesses/{business_id}/dashboard
+
+/api/v1/businesses/{business_id}/customers
+
+/api/v1/businesses/{business_id}/products
+
+/api/v1/businesses/{business_id}/orders
+
+/api/v1/businesses/{business_id}/inventory
+
+/api/v1/businesses/{business_id}/transactions
+
+/api/v1/businesses/{business_id}/imports
+
+/api/v1/businesses/{business_id}/documents
+
+/api/v1/businesses/{business_id}/rag
+
+/api/v1/businesses/{business_id}/predictions
+
+/api/v1/businesses/{business_id}/models
+
+/api/v1/businesses/{business_id}/digital-twin
+
+/api/v1/businesses/{business_id}/scenarios
+
+/api/v1/businesses/{business_id}/agent
+
+/api/v1/businesses/{business_id}/knowledge-graph
+
+/api/v1/businesses/{business_id}/reports
+
+/api/v1/businesses/{business_id}/audit-logs
+
+Use appropriate HTTP methods and status codes.
+
+Implement:
+
+* Pydantic request and response schemas
+* Centralized exception handling
+* Authentication dependencies
+* Authorization dependencies
+* Tenant resolution
+* Database session management
+* Request validation
+* Pagination
+* Filtering
+* Rate limiting
+* Structured logging
+* Request IDs
+* Idempotency for suitable operations
+
+Long-running operations must execute through background workers where appropriate.
+
+Expose job status and errors to the frontend.
+
+Use consistent API error responses without leaking internal exceptions.
+
+Provide OpenAPI documentation.
+
+⸻
+
+20. SECURITY
+
+Implement security from the beginning.
+
+Required controls:
+
+* Secure authentication
+* Password hashing with a recognized password-hashing algorithm
+* Secure session or token handling
+* Role-based authorization
+* Tenant isolation
+* Request validation
+* Rate limiting
+* File upload restrictions
+* Secret management
+* Audit logging
+* Database constraints
+* Secure CORS configuration
+* HTTPS in production
+* Protection against SQL injection
+* Protection against insecure direct object references
+* Safe error handling
+
+If using cookies for authentication, implement appropriate CSRF protection and cookie settings.
+
+Do not store sensitive authentication tokens in localStorage by default.
+
+Treat uploaded documents and retrieved text as untrusted input.
+
+Protect the RAG and agent pipeline against prompt injection.
+
+Document text must never be allowed to override system instructions, reveal secrets, bypass permissions, or invoke unauthorized tools.
+
+Use least-privilege access for AI tools.
+
+Never expose one business’s private documents to another business through shared prompts or retrieval caches.
+
+⸻
+
+21. REPORTING AND EXPORTS
+
+Allow authorized users to generate:
+
+* Monthly business report
+* Revenue and expense report
+* Sales forecast report
+* Inventory risk report
+* Customer churn report
+* Scenario comparison report
+* AI investigation report
+
+Support CSV and PDF exports where appropriate.
+
+Reports must include:
+
+* Business name
+* Reporting period
+* Data freshness
+* Model information when relevant
+* Assumptions
+* Metric definitions
+* Sources
+* Limitations
+
+Never represent simulated values as actual historical financial results.
+
+⸻
+
+22. AUDITABILITY AND OBSERVABILITY
+
+Log important events:
+
+* Authentication events
+* Business creation
+* Membership changes
+* Data imports
+* Document processing
+* RAG queries
+* Model training
+* Predictions
+* Simulations
+* AI tool executions
+* Report generation
+* Configuration changes
+
+Avoid storing secrets, unnecessary personal data, or full sensitive document content in logs.
+
+Provide health checks and readiness checks.
+
+Track:
+
+* API latency
+* Background job status
+* Model failures
+* RAG retrieval latency
+* LLM provider errors
+* Token usage when available
+* Simulation duration
+* Database connectivity
+
+Add appropriate correlation IDs to connect requests and background jobs.
+
+⸻
+
+23. PROJECT STRUCTURE
+
+Use a clean monorepo structure similar to:
+
+nexora-twin/
+│
+├── frontend/
+│   ├── src/
+│   │   ├── app/
+│   │   ├── components/
+│   │   ├── features/
+│   │   │   ├── auth/
+│   │   │   ├── businesses/
+│   │   │   ├── dashboard/
+│   │   │   ├── documents/
+│   │   │   ├── rag/
+│   │   │   ├── predictions/
+│   │   │   ├── digital-twin/
+│   │   │   ├── simulations/
+│   │   │   ├── agent/
+│   │   │   ├── knowledge-graph/
+│   │   │   └── settings/
+│   │   ├── lib/
+│   │   ├── hooks/
+│   │   ├── services/
+│   │   ├── types/
+│   │   └── styles/
+│   ├── tests/
+│   ├── Dockerfile
+│   └── package.json
+│
+├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── core/
+│   │   ├── db/
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   ├── repositories/
+│   │   ├── services/
+│   │   ├── tenancy/
+│   │   ├── business_profiles/
+│   │   ├── ingestion/
+│   │   ├── rag/
+│   │   ├── embeddings/
+│   │   ├── ml/
+│   │   ├── forecasting/
+│   │   ├── calculations/
+│   │   ├── digital_twin/
+│   │   ├── simulation/
+│   │   ├── agents/
+│   │   ├── knowledge_graph/
+│   │   ├── reports/
+│   │   ├── workers/
+│   │   └── main.py
+│   ├── migrations/
+│   ├── tests/
+│   ├── pyproject.toml
+│   └── Dockerfile
+│
+├── datasets/
+│   ├── retail/
+│   ├── restaurant/
+│   ├── manufacturing/
+│   └── services/
+│
+├── docs/
+│   ├── architecture.md
+│   ├── database-schema.md
+│   ├── api-reference.md
+│   ├── rag-pipeline.md
+│   ├── ml-pipeline.md
+│   ├── simulation-methodology.md
+│   ├── security.md
+│   ├── evaluation.md
+│   └── deployment.md
+│
+├── scripts/
+│   ├── seed_demo_data.py
+│   └── validate_environment.py
+│
+├── docker-compose.yml
+├── .env.example
+├── .gitignore
+└── README.md
+
+Adjust this structure when justified, but preserve clear separation of concerns.
+
+Do not create empty modules merely to imitate the directory tree.
+
+⸻
+
+24. TESTING REQUIREMENTS
+
+Write and execute automated tests.
+
+Backend
+
+Test:
+
+* Authentication
+* Authorization
+* Tenant isolation
+* Business switching
+* CRUD operations
+* Data imports
+* Financial calculations
+* Document ingestion
+* Tenant-scoped RAG retrieval
+* Citation generation
+* ML training and inference
+* Forecast validation
+* Simulation calculations
+* Agent tool authorization
+* Error handling
+
+Frontend
+
+Test:
+
+* Login
+* Business creation
+* Business switching
+* Dashboard loading
+* Data import
+* Document upload
+* RAG conversations
+* Prediction visualization
+* Simulation execution
+* Scenario comparison
+* Permission-based interfaces
+
+Integration tests
+
+Verify:
+
+1. A user can create two businesses.
+2. Each business maintains independent data.
+3. Documents uploaded to one business cannot be retrieved from another.
+4. Business-specific predictions use authorized datasets.
+5. Simulations do not modify actual business records.
+6. RAG answers cite real sources.
+7. Failed model-provider calls return explicit errors.
+8. Invalid scenario parameters are rejected.
+9. Background jobs preserve tenant context.
+10. Unauthorized users cannot train or deploy models.
+
+Include regression tests for discovered bugs.
+
+Do not mark a test as passed unless it actually ran successfully.
+
+⸻
+
+25. DEMO DATA
+
+Create a reproducible demo environment with several business profiles.
+
+Use at least:
+
+* One retail business
+* One restaurant business
+* One manufacturing business
+
+Provide linked synthetic data for:
+
+* Customers
+* Products
+* Orders
+* Expenses
+* Inventory
+* Suppliers
+* Business documents
+
+Ensure that each business has its own data and users.
+
+Include enough historical records to demonstrate basic analytics and selected ML workflows.
+
+Generate sample policy and business documents for RAG.
+
+Label all synthetic information as demonstration data.
+
+Do not claim that synthetic-data model metrics represent real-world business performance.
+
+If a dataset is too small to train a reliable model, demonstrate the workflow with a baseline and clearly explain the limitation.
+
+⸻
+
+26. DEPLOYMENT
+
+Provide Docker-based local development.
+
+Docker Compose should define the required services, including:
+
+* Frontend
+* Backend
+* PostgreSQL with pgvector support
+* Redis
+* Background worker
+* Optional scheduler
+
+Configure persistent storage for PostgreSQL and any required files.
+
+Use health checks and sensible startup dependencies.
+
+Do not hardcode production secrets.
+
+Provide a complete .env.example.
+
+Document:
+
+* Prerequisites
+* Installation
+* Environment setup
+* Database migrations
+* Demo data generation
+* Starting the application
+* Running tests
+* Creating an administrator
+* Configuring AI providers
+* Troubleshooting
+* Production deployment
+
+Keep production deployment cloud-agnostic where possible.
+
+Provide a practical AWS deployment guide as an optional deployment target.
+
+Do not assume that every model can run economically on a small server.
+
+Document CPU, RAM, GPU, storage, and API cost considerations where relevant.
+
+⸻
+
+27. IMPLEMENTATION PLAN
+
+Work in the following phases.
+
+Do not attempt to generate the entire application in one unverified code dump.
+
+Phase 1: Repository and architecture
+
+* Inspect existing code.
+* Confirm dependencies.
+* Establish the monorepo.
+* Create the design system.
+* Configure Docker and environment variables.
+* Set up FastAPI and Next.js.
+* Configure PostgreSQL and migrations.
+* Add health checks.
+
+Acceptance criteria:
+
+The frontend and backend start successfully, and the database connection works.
+
+Phase 2: Authentication and multi-tenancy
+
+* Implement users.
+* Implement businesses.
+* Implement memberships and roles.
+* Add tenant-scoped queries.
+* Add business switching.
+* Add tenant-isolation tests.
+
+Acceptance criteria:
+
+Two businesses can coexist without unauthorized cross-tenant access.
+
+Phase 3: Business data and dashboard
+
+* Implement core business entities.
+* Add CSV/XLSX imports.
+* Add validation.
+* Implement calculations.
+* Connect dashboard charts to backend APIs.
+
+Acceptance criteria:
+
+Imported data appears correctly in the appropriate business dashboard.
+
+Phase 4: Document intelligence and RAG
+
+* Implement file uploads.
+* Add document processing.
+* Generate embeddings.
+* Store vectors in pgvector.
+* Implement hybrid retrieval.
+* Add citations.
+* Add RAG evaluation.
+
+Acceptance criteria:
+
+A user can upload a document, ask a question, and receive a grounded answer with valid source references.
+
+Phase 5: ML and forecasting
+
+* Add dataset preparation.
+* Implement baselines.
+* Train suitable models.
+* Evaluate models.
+* Store versions and results.
+* Build prediction APIs.
+* Create prediction dashboards.
+
+Acceptance criteria:
+
+The system can train or load an appropriate model, generate predictions, and explain its limitations.
+
+Phase 6: Digital twin
+
+* Implement snapshots.
+* Add historical comparisons.
+* Track metric provenance.
+* Add business health indicators.
+* Connect the UI.
+
+Acceptance criteria:
+
+The twin represents a reproducible view of the selected business state.
+
+Phase 7: What-If Lab
+
+* Implement scenario schemas.
+* Implement deterministic calculations.
+* Add assumptions and sensitivity analysis.
+* Persist scenarios.
+* Compare outcomes.
+* Add simulation tests.
+
+Acceptance criteria:
+
+A user can modify scenario parameters, run a simulation, and compare its results with the baseline without modifying real business records.
+
+Phase 8: AI analyst agent
+
+* Implement structured tools.
+* Add permission checks.
+* Add tool execution tracking.
+* Integrate RAG and ML services.
+* Add evidence-based explanations.
+* Add safe failure handling.
+
+Acceptance criteria:
+
+The agent can investigate a supported business question using real tool results and provide evidence for its conclusions.
+
+Phase 9: Knowledge graph and reports
+
+* Create relationship tables.
+* Add graph exploration.
+* Generate business reports.
+* Add CSV/PDF export.
+* Add auditability.
+
+Acceptance criteria:
+
+Users can explore supported business relationships and export useful reports.
+
+Phase 10: Hardening and delivery
+
+* Run all tests.
+* Resolve integration bugs.
+* Review tenant isolation.
+* Review security.
+* Check accessibility.
+* Optimize major queries.
+* Verify Docker startup.
+* Complete documentation.
+* Record remaining limitations.
+
+Acceptance criteria:
+
+A fresh environment can be configured using the documented instructions, the database can be migrated, demo data can be seeded, and the application can be tested end to end.
+
+⸻
+
+28. WORKING METHOD FOR THE CODING AGENT
+
+At the start:
+
+1. Inspect the repository.
+2. Identify the existing framework and conventions.
+3. List available dependencies and tools.
+4. Identify missing environment variables.
+5. Produce a concise implementation plan.
+6. Identify architectural risks.
+7. Begin implementation.
+
+During development:
+
+* Implement one coherent feature at a time.
+* Run relevant tests after each feature.
+* Fix failures before proceeding.
+* Keep API contracts synchronized.
+* Avoid duplicating business logic across frontend and backend.
+* Keep numerical calculations in tested backend services.
+* Use migrations for database changes.
+* Update documentation when behavior changes.
+* Keep a development progress log.
+
+After each phase, report:
+
+1. What was implemented.
+2. Which files were created or modified.
+3. Which commands were run.
+4. Which tests passed.
+5. Which tests failed.
+6. Which environment variables remain necessary.
+7. What remains incomplete.
+8. The next recommended phase.
+
+Never report a successful build, deployment, test, or API integration without verifying it.
+
+If credentials are missing, implement the provider integration and explain how to configure it. Do not pretend the external service was tested.
+
+If a feature depends on unavailable infrastructure, isolate it behind an interface and provide a clearly labeled development alternative.
+
+Do not silently replace the required functionality with static data.
+
+⸻
+
+29. FINAL DEFINITION OF DONE
+
+The project is ready for final demonstration when:
+
+* Multiple businesses can be created and managed.
+* Tenant boundaries are enforced and tested.
+* Structured business data can be imported and analyzed.
+* Financial calculations are tested.
+* Documents can be ingested and retrieved through RAG.
+* Answers provide real citations.
+* ML predictions are generated by actual models.
+* Forecasts are evaluated against appropriate baselines.
+* The digital twin displays traceable business state.
+* What-if scenarios produce reproducible calculations.
+* Multiple scenarios can be compared.
+* The AI analyst uses controlled tools.
+* Unsupported conclusions are identified as uncertain.
+* The knowledge graph displays traceable relationships.
+* Reports can be exported.
+* The frontend is responsive and professionally designed.
+* Docker startup and database migrations work.
+* Automated tests cover critical workflows.
+* Documentation explains installation, architecture, evaluation, and limitations.
+
+The final application should feel like a coherent enterprise decision-support platform, not a collection of unrelated AI demos.
+
+Begin by inspecting the repository and implementing Phase 1. Continue through subsequent phases incrementally, verifying each phase before proceeding.

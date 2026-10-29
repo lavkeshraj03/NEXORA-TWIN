@@ -1,0 +1,3 @@
+sku,name,unit_price,unit_cost,supplier_external_id,initial_stock,is_demo
+P1,Consulting hour,1500.00,800.00,S1,0,true
+P2,Support hour,700.00,350.00,S1,0,true
